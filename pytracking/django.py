@@ -2,7 +2,6 @@ from django.conf import settings
 from django.http import (
     HttpResponseRedirect, Http404, HttpResponse)
 from django.views.generic import View
-from ipware import get_client_ip
 from pytracking.tracking import (
     get_configuration, TRACKING_PIXEL, PNG_MIME_TYPE)
 
@@ -102,15 +101,11 @@ class OpenTrackingView(TrackingView):
 def get_request_data(request):
     """Retrieves the user agent and the ip of the client from the Django
     request.
-
-    We use ipware to retrieve the "real" IP (e.g., load balancer will often put
-    the client IP in X-Forwarded-For header).
     """
     user_agent = request.META.get("HTTP_USER_AGENT")
-    ip = get_client_ip(request)[0]
     return {
         "user_agent": user_agent,
-        "user_ip": ip
+        "user_ip": request.META["REMOTE_ADDR"]
     }
 
 
