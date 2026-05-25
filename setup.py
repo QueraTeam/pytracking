@@ -13,11 +13,11 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 EXTRA_REQUIRES = {
-    'test': ['tox>=2.3.1', 'pytest>=2.9.2'],
+    'test': ['tox>=4', 'pytest>=8'],
     'webhook': ['requests>=2.10.0'],
     'html': ['lxml>=3.6.1'],
     'crypto': ['cryptography>=1.4'],
-    'django': ['django>=1.11']
+    'django': ['django>=5.2,<6.1']
 }
 
 ALL_REQUIRE = list(chain(*EXTRA_REQUIRES.values()))
@@ -64,10 +64,13 @@ setup(
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
+        'Framework :: Django :: 5.2',
+        'Framework :: Django :: 6.0',
     ],
 
     # What does your project relate to?
@@ -88,6 +91,7 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require=EXTRA_REQUIRES,
+    python_requires='>=3.10',
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these

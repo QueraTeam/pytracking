@@ -1,6 +1,15 @@
 Changelog - pytracking
 ======================
 
+Unreleased
+---------------------
+
+- Removed django-ipware and now rely on ``REMOTE_ADDR`` to reduce the risk of IP spoofing
+- Updated supported Python versions to 3.10, 3.11, 3.12, 3.13, 3.14
+- Updated supported Django versions to 5.2 and 6.0
+- Updated GitHub Actions test coverage and added Dependabot
+- Fixed tox configuration for the test environments
+
 0.2.2 - November 17th 2020
 --------------------------
 

@@ -2,68 +2,49 @@ name: Tests
 
 on:
   push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
-  workflow_dispatch:
-    inputs: {}
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        env: [pytracking]
         include:
-          - python-version: 3.6
-            env: django-dj111
-          - python-version: 3.7
-            env: django-dj111
-          - python-version: 3.6
-            env: django-dj20
-          - python-version: 3.7
-            env: django-dj20
-          - python-version: 3.6
-            env: django-dj21
-          - python-version: 3.7
-            env: django-dj21
-          - python-version: 3.6
-            env: django-dj22
-          - python-version: 3.7
-            env: django-dj22
-          - python-version: 3.8
-            env: django-dj22
-          - python-version: 3.9
-            env: django-dj22
-          - python-version: 3.6
-            env: django-dj30
-          - python-version: 3.7
-            env: django-dj30
-          - python-version: 3.8
-            env: django-dj30
-          - python-version: 3.9
-            env: django-dj30
-          - python-version: 3.6
-            env: django-dj31
-          - python-version: 3.7
-            env: django-dj31
-          - python-version: 3.8
-            env: django-dj31
-          - python-version: 3.9
-            env: django-dj31
+          - python-version: "3.10"
+            toxenv: py310-pytracking
+          - python-version: "3.11"
+            toxenv: py311-pytracking
+          - python-version: "3.12"
+            toxenv: py312-pytracking
+          - python-version: "3.13"
+            toxenv: py313-pytracking
+          - python-version: "3.14"
+            toxenv: py314-pytracking
+          - python-version: "3.10"
+            toxenv: py310-django-dj52
+          - python-version: "3.11"
+            toxenv: py311-django-dj52
+          - python-version: "3.12"
+            toxenv: py312-django-dj52
+          - python-version: "3.13"
+            toxenv: py313-django-dj52
+          - python-version: "3.14"
+            toxenv: py314-django-dj52
+          - python-version: "3.12"
+            toxenv: py312-django-dj60
+          - python-version: "3.13"
+            toxenv: py313-django-dj60
+          - python-version: "3.14"
+            toxenv: py314-django-dj60
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install tox
-    - name: Test with tox and pyenv
-      env:
-        TOXENV: ${{ matrix.env }}
-      run: |
-        tox
+      - uses: actions/checkout@v6
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+      - name: Test with tox
+        run: tox -e ${{ matrix.toxenv }}
