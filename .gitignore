@@ -4,6 +4,7 @@
 /build
 *.egg-info
 .idea/
+.venv/
 .tox/
 dist/
 cache/

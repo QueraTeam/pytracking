@@ -41,7 +41,7 @@ def setup_django():
 
 def test_get_django_request_data(setup_django):
     request = FakeDjangoRequest()
-    request.META["HTTP_X_REAL_IP"] = "10.10.240.22"
+    request.META["REMOTE_ADDR"] = "10.10.240.22"
     request.META["HTTP_USER_AGENT"] = "Firefox"
 
     request_data = tracking_django.get_request_data(request)
@@ -59,7 +59,7 @@ def test_get_tracking_result(setup_django):
         url, base_open_tracking_url=DEFAULT_BASE_OPEN_TRACKING_URL)
 
     request = FakeDjangoRequest()
-    request.META["HTTP_X_REAL_IP"] = "10.10.240.22"
+    request.META["REMOTE_ADDR"] = "10.10.240.22"
     request.META["HTTP_USER_AGENT"] = "Firefox"
 
     tracking_result = tracking_django.get_tracking_result(
@@ -91,7 +91,7 @@ def test_valid_click_tracking_view(setup_django):
     path = get_click_tracking_url_path(url, configuration=configuration)
 
     request = FakeDjangoRequest()
-    request.META["HTTP_X_REAL_IP"] = "10.10.240.22"
+    request.META["REMOTE_ADDR"] = "10.10.240.22"
     request.META["HTTP_USER_AGENT"] = "Firefox"
 
     response = TestClickView.as_view()(request, path)
@@ -185,7 +185,7 @@ def test_valid_open_tracking_view(setup_django):
     path = get_open_tracking_url_path(url, configuration=configuration)
 
     request = FakeDjangoRequest()
-    request.META["HTTP_X_REAL_IP"] = "10.10.240.22"
+    request.META["REMOTE_ADDR"] = "10.10.240.22"
     request.META["HTTP_USER_AGENT"] = "Firefox"
 
     response = TestOpenView.as_view()(request, path)
