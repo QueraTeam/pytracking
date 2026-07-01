@@ -1,7 +1,7 @@
 Changelog - pytracking
 ======================
 
-Unreleased
+0.3.0 - July 1st 2026
 ---------------------
 
 - Removed django-ipware and now rely on ``REMOTE_ADDR`` to reduce the risk of IP spoofing
